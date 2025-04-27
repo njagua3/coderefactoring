@@ -135,24 +135,33 @@ public class Main {
         int years = (int) readNumber("Period (Years): ", 1, 30);
 
 
-        double mortgage = calculateMortgage((int) principal, (float) annualInterest, years);
+        printMortgage((int) principal, (float) annualInterest, years);
+
+        printPaymentSchedule(years, (int) principal, (float) annualInterest);
+
+
+    }
+
+    private static void printMortgage(int principal, float annualInterest, int years) {
+        double mortgage = calculateMortgage(principal, annualInterest, years);
         // format mortgage value as a currency
 
         String mortgageFormatted = NumberFormat.getCurrencyInstance().format(mortgage);
         System.out.println("MORTGAGE");
         System.out.println("--------");
         System.out.println("Monthly Payments: " + mortgageFormatted);
+    }
+
+    private static void printPaymentSchedule(int years, int principal, float annualInterest) {
         System.out.println();
         System.out.println("PAYMENT SCHEDULE");
         System.out.println("----------------");
         for (short month = 1; month <= years * 12; month++) {
-            double balance = calculateBalance((int) principal, (float) annualInterest, years, month);
+            double balance = calculateBalance(principal, annualInterest, years, month);
             System.out.println(NumberFormat.getCurrencyInstance().format(balance));
         }
-
-
-
     }
+
     public static double readNumber(
             String prompt,
             double min,
